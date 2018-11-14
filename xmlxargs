@@ -23,10 +23,13 @@ my $arg_max = sysconf( &POSIX::_SC_ARG_MAX );
 
 print ":::: \$arg_max = $arg_max\n";
 
-local $/ = '<?xml ';
+my $xml_head = '<?xml ';
+local $/ = $xml_head;
 
 while(<>) {
+    s/\Q$xml_head\E$//;
+    next if $_ eq "";
     print ">>>>\n";
-    print $_;
+    print $xml_head, $_;
     print "<<<<\n";
 }
