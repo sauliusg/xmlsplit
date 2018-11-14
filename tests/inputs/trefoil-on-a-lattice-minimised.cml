@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<molecule
+    xmlns="http://www.xml-cml.org/schema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xml-cml.org/schema/schema24/schema.xsd schema.xsd">
+ <atomArray>
+  <atom id="a1" elementType="C" x3="-1.455816" y3="1.849589" z3="0.384620"/>
+  <atom id="a2" elementType="C" x3="-0.134659" y3="0.953485" z3="1.274751"/>
+  <atom id="a3" elementType="C" x3="1.036246" y3="6.230686" z3="1.834142"/>
+  <atom id="a4" elementType="C" x3="-0.115384" y3="5.016652" z3="2.574292"/>
+  <atom id="a5" elementType="C" x3="-0.243359" y3="3.281627" z3="1.938170"/>
+  <atom id="a6" elementType="C" x3="0.794477" y3="2.446015" z3="-0.345728"/>
+  <atom id="a7" elementType="C" x3="-1.339085" y3="3.590109" z3="-0.167572"/>
+  <atom id="a8" elementType="C" x3="0.136193" y3="4.639718" z3="0.223855"/>
+  <atom id="a9" elementType="C" x3="2.216061" y3="5.854466" z3="0.489788"/>
+  <atom id="a10" elementType="C" x3="2.327573" y3="4.130404" z3="-0.174929"/>
+  <atom id="a11" elementType="C" x3="1.471321" y3="1.803805" z3="1.627540"/>
+  <atom id="a12" elementType="C" x3="2.005535" y3="3.996357" z3="1.979755"/>
+  <atom id="a13" elementType="C" x3="3.488876" y3="2.826863" z3="1.282887"/>
+  <atom id="a14" elementType="C" x3="2.724786" y3="1.878879" z3="-0.268840"/>
+ </atomArray>
+ <bondArray>
+  <bond atomRefs2="a2 a1" order="1"/>
+  <bond atomRefs2="a1 a7" order="1"/>
+  <bond atomRefs2="a7 a8" order="1"/>
+  <bond atomRefs2="a8 a12" order="1"/>
+  <bond atomRefs2="a12 a13" order="1"/>
+  <bond atomRefs2="a13 a14" order="1"/>
+  <bond atomRefs2="a14 a6" order="1"/>
+  <bond atomRefs2="a6 a5" order="1"/>
+  <bond atomRefs2="a5 a4" order="1"/>
+  <bond atomRefs2="a4 a3" order="1"/>
+  <bond atomRefs2="a3 a9" order="1"/>
+  <bond atomRefs2="a9 a10" order="1"/>
+  <bond atomRefs2="a10 a11" order="1"/>
+  <bond atomRefs2="a11 a2" order="1"/>
+ </bondArray>
+</molecule>

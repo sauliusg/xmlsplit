@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<molecule
+    xmlns="http://www.xml-cml.org/schema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xml-cml.org/schema/schema24/schema.xsd schema.xsd">
+ <atomArray>
+  <atom id="a1" elementType="C" x3="0.0" y3="0.0" z3="0.0"/>
+  <atom id="a2" elementType="C" x3="0.0" y3="9.0" z3="0.0"/>
+  <atom id="a3" elementType="C" x3="9.0" y3="9.0" z3="0.0"/>
+  <atom id="a4" elementType="C" x3="9.0" y3="0.0" z3="0.0"/>
+  <atom id="a5" elementType="C" x3="0.0" y3="0.0" z3="9.0"/>
+  <atom id="a6" elementType="C" x3="0.0" y3="9.0" z3="9.0"/>
+  <atom id="a7" elementType="C" x3="9.0" y3="9.0" z3="9.0"/>
+  <atom id="a8" elementType="C" x3="9.0" y3="0.0" z3="9.0"/>
+ </atomArray>
+ <bondArray>
+  <bond id="b1" atomRefs2="a1 a2" order="1"/>
+  <bond id="b2" atomRefs2="a2 a3" order="1"/>
+  <bond id="b3" atomRefs2="a3 a4" order="1"/>
+  <bond id="b4" atomRefs2="a4 a1" order="1"/>
+  <bond id="b5" atomRefs2="a5 a6" order="1"/>
+  <bond id="b6" atomRefs2="a6 a7" order="1"/>
+  <bond id="b7" atomRefs2="a7 a8" order="1"/>
+  <bond id="b8" atomRefs2="a8 a5" order="1"/>
+  <bond id="b9" atomRefs2="a1 a5" order="1"/>
+  <bond id="b10" atomRefs2="a2 a6" order="1"/>
+  <bond id="b11" atomRefs2="a3 a7" order="1"/>
+  <bond id="b12" atomRefs2="a4 a8" order="1"/>
+ </bondArray>
+ <array id="c1" title="crossings">
+   lower=b1:upper=b2
+ </array>
+</molecule>
