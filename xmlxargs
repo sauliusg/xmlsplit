@@ -19,6 +19,12 @@ use warnings;
 
 use POSIX qw(sysconf);
 
+use lib 'externals/SOptions';
+use lib 'externals/SUsage';
+
+use SOptions qw(getOptions);
+use SUsage qw(usage);
+
 my $arg_max = sysconf( &POSIX::_SC_ARG_MAX );
 
 print ":::: \$arg_max = $arg_max\n";
