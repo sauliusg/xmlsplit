@@ -1,0 +1,16 @@
+#! /bin/sh
+#------------------------------------------------------------------------------
+#$Author$
+#$Date$ 
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+#*
+#  Concatenate several XML files into a stream.
+#**
+
+set -ue;
+
+# In its simples form, we just cat the files:
+
+cat ${1+"$@"}

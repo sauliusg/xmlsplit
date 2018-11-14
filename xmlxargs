@@ -1,0 +1,32 @@
+#! /bin/sh
+#!perl --*- Perl -*--
+eval 'exec perl -x $0 ${1+"$@"}'
+    if 0;
+#------------------------------------------------------------------------------
+#$Author$
+#$Date$ 
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+#*
+#  Split convcatenated XML file stream into separate XML files and run
+#  the peorgrams that is specified on the command line, in the manner
+#  'xargs' does it for the arguments read from STDIN.
+#**
+
+use strict;
+use warnings;
+
+use POSIX qw(sysconf);
+
+my $arg_max = sysconf( &POSIX::_SC_ARG_MAX );
+
+print ":::: \$arg_max = $arg_max\n";
+
+local $/ = '<?xml ';
+
+while(<>) {
+    print ">>>>\n";
+    print $_;
+    print "<<<<\n";
+}

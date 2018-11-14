@@ -1,0 +1,26 @@
+#! /bin/sh
+#!perl --*- Perl -*--
+eval 'exec perl -x $0 ${1+"$@"}'
+    if 0;
+#------------------------------------------------------------------------------
+#$Author$
+#$Date$ 
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
+#*
+#  Split convcatenated XML file stream into separate XML files. Each
+#  resulting file will be well-formed if the original files were
+#  well-formed before concatenation.
+#**
+
+use strict;
+use warnings;
+
+local $/ = '<?xml ';
+
+while(<>) {
+    print ">>>>\n";
+    print $_;
+    print "<<<<\n";
+}
