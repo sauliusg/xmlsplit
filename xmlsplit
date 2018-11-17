@@ -17,6 +17,17 @@ eval 'exec perl -x $0 ${1+"$@"}'
 use strict;
 use warnings;
 
+BEGIN {
+    use Cwd qw(abs_path);
+    my $base_dir = abs_path(__FILE__);
+    $base_dir =~ /(.*)\/[^\/]+$/;
+    $base_dir = $1;
+    $base_dir =~ s/\/(?:bin|scripts)$//;
+    push(@INC, $base_dir . "/lib/perl5");
+    push(@INC, $base_dir . "/externals/SOptions");
+    push(@INC, $base_dir . "/externals/SUsage");
+}
+
 my $xml_head = '<?xml ';
 local $/ = $xml_head;
 
