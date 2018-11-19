@@ -28,10 +28,16 @@ BEGIN {
     push(@INC, $base_dir . "/externals/SUsage");
 }
 
+use File::Basename qw(basename);
 use SOptions qw(getOptions);
 use SUsage qw(usage);
 
 my $xml_head = '<?xml ';
+
+my $output_dir = '';
+my $prefix = basename( $0 ) . '_';
+my $suffix = '.xml';
+my $digits = 4; # Number of decomal digits used to number the split files.
 
 #* USAGE:
 #*     $0 --options input1.xmlcat input*.xmlcat
@@ -42,7 +48,11 @@ my $xml_head = '<?xml ';
 #*    --help,--usage         Print a short usage message (this message) and exit.
 #**
 
-@ARGV = getOptions( 
+@ARGV = getOptions(
+    "-d,--digits" => \$digits,
+    "-o,--output-directory" => \$output_dir,
+    "-p,--prefix" => \$prefix,
+    "-s,--suffix" => \$suffix,
     "--options" => sub { 
         print "$0: The '--options' option is a placehoder.\n";
         print "$0: It should be replaced by one of the following options:\n";
@@ -58,19 +68,37 @@ my $xml_head = '<?xml ';
         close( SCRIPT );
         exit
     },
-    "--help,--usage" => sub { SUsage::usage; exit },
+    "--help,--usage" => sub { usage; exit },
 );
 
 # The redefinition of '$/' must be done after the option processing,
 # otherwise 'SUsage::usage', '--help' and '--options' options will not
 # work as expected.
 
+# Remove trailing '/' characters
+$output_dir =~ s/\/*$//;
+$output_dir = '.' unless $output_dir;
+
+my $format = sprintf( "%%0%dd", $digits );
+
+print ">>> \$format = $format\n";
+
+if( ! -e $output_dir ) {
+    mkdir $output_dir;
+}
+
 local $/ = $xml_head;
 
+my $n = 1;
 while(<>) {
     s/\Q$xml_head\E$//;
     next if $_ eq "";
-    print ">>>>\n";
-    print $xml_head, $_;
-    print "<<<<\n";
+    my $filename = $output_dir . '/' .
+        $prefix . sprintf( $format, $n ) . $suffix;
+    print ">>>> \$filename = $filename\n";
+    open( my $fh, ">$filename" ) or
+        die "could not open file '$filename' for writing: $!";
+    print $fh $xml_head, $_;
+    close($fh);
+    $n++;
 }
