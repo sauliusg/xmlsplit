@@ -1,0 +1,13 @@
+
+  Split concatenated XML file stream into separate XML files. Each
+  resulting file will be well-formed if the original files were
+  well-formed before concatenation.
+
+ USAGE:
+     ./xmlsplit --options input1.xmlcat input*.xmlcat
+     ./xmlsplit --options < input.xmlcat
+ 
+ OPTIONS:
+
+    --help,--usage         Print a short usage message (this message) and exit.
+

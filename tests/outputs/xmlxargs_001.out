@@ -1,0 +1,14 @@
+:::: $arg_max = 2097152
+
+  Split concatenated XML file stream into separate XML files and run
+  the peorgrams that is specified on the command line, in the manner
+  'xargs' does it for the arguments read from STDIN.
+
+ USAGE:
+     ./xmlxargs --options input1.xmlcat input*.xmlcat
+     ./xmlxargs --options < input.xmlcat
+ 
+ OPTIONS:
+
+    --help,--usage         Print a short usage message (this message) and exit.
+

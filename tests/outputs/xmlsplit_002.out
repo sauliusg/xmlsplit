@@ -1,0 +1,3 @@
+Files xmlsplit_0001.xml and ../tests/inputs/cml/cube.cml are identical
+Files xmlsplit_0002.xml and ../tests/inputs/cml/trefoil-on-a-lattice.cml are identical
+ls: cannot access 'xmlsplit_0003.xml': No such file or directory
