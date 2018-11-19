@@ -81,8 +81,6 @@ $output_dir = '.' unless $output_dir;
 
 my $format = sprintf( "%%0%dd", $digits );
 
-print ">>> \$format = $format\n";
-
 if( ! -e $output_dir ) {
     mkdir $output_dir;
 }
@@ -95,10 +93,11 @@ while(<>) {
     next if $_ eq "";
     my $filename = $output_dir . '/' .
         $prefix . sprintf( $format, $n ) . $suffix;
-    print ">>>> \$filename = $filename\n";
+
     open( my $fh, ">$filename" ) or
         die "could not open file '$filename' for writing: $!";
     print $fh $xml_head, $_;
     close($fh);
+
     $n++;
 }
