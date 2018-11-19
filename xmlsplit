@@ -9,7 +9,7 @@ eval 'exec perl -x $0 ${1+"$@"}'
 #$URL$
 #------------------------------------------------------------------------------
 #*
-#  Split convcatenated XML file stream into separate XML files. Each
+#  Split concatenated XML file stream into separate XML files. Each
 #  resulting file will be well-formed if the original files were
 #  well-formed before concatenation.
 #**

@@ -9,7 +9,7 @@ eval 'exec perl -x $0 ${1+"$@"}'
 #$URL$
 #------------------------------------------------------------------------------
 #*
-#  Split convcatenated XML file stream into separate XML files and run
+#  Split concatenated XML file stream into separate XML files and run
 #  the peorgrams that is specified on the command line, in the manner
 #  'xargs' does it for the arguments read from STDIN.
 #**
