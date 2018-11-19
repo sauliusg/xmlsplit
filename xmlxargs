@@ -38,7 +38,6 @@ my $arg_max = sysconf( &POSIX::_SC_ARG_MAX );
 print ":::: \$arg_max = $arg_max\n";
 
 my $xml_head = '<?xml ';
-local $/ = $xml_head;
 
 #* USAGE:
 #*     $0 --options input1.xmlcat input*.xmlcat
@@ -67,6 +66,12 @@ local $/ = $xml_head;
     },
     "--help,--usage" => sub { SUsage::usage; exit },
 );
+
+# The redefinition of '$/' must be done after the option processing,
+# otherwise 'SUsage::usage', '--help' and '--options' options will not
+# work as expected.
+
+local $/ = $xml_head;
 
 while(<>) {
     s/\Q$xml_head\E$//;
