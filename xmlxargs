@@ -40,6 +40,34 @@ print ":::: \$arg_max = $arg_max\n";
 my $xml_head = '<?xml ';
 local $/ = $xml_head;
 
+#* USAGE:
+#*     $0 --options input1.xmlcat input*.xmlcat
+#*     $0 --options < input.xmlcat
+#* 
+#* OPTIONS:
+#*
+#*    --help,--usage         Print a short usage message (this message) and exit.
+#**
+
+@ARGV = getOptions( 
+    "--options" => sub { 
+        print "$0: The '--options' option is a placehoder.\n";
+        print "$0: It should be replaced by one of the following options:\n";
+        ## SUsage::usage;
+        open( SCRIPT, $0 ) or die $!;
+        while( <SCRIPT> ) {
+            if( /^#\*\s+OPTIONS:/../^#\*\*/ ) {
+                s/^#\*\s+OPTIONS://;
+                s/^#\*\*?\s+//;
+                print;
+            }
+        }
+        close( SCRIPT );
+        exit
+    },
+    "--help,--usage" => sub { SUsage::usage; exit },
+);
+
 while(<>) {
     s/\Q$xml_head\E$//;
     next if $_ eq "";
