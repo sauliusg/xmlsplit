@@ -8,6 +8,9 @@
      ./xmlsplit --options < input.xmlcat
  
  OPTIONS:
-
+    -d, --digits 4         Use specified number of digits (0-paded) to number files.
+    -o, --output-dir .     Specify output directory name. Output tree is created if needed.
+    -p, --prefix xmlsplit_ Specify file prefix. Prefix may contain '/' after exisitng dirs.
+    -s, --suffix .xml      Specify the suffix (extension) of the created files.
     --help,--usage         Print a short usage message (this message) and exit.
 
