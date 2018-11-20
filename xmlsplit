@@ -28,6 +28,7 @@ BEGIN {
     push(@INC, $base_dir . "/externals/SUsage");
 }
 
+use File::Path qw(make_path);
 use File::Basename qw(basename);
 use SOptions qw(getOptions);
 use SUsage qw(usage);
@@ -82,7 +83,7 @@ $output_dir = '.' unless $output_dir;
 my $format = sprintf( "%%0%dd", $digits );
 
 if( ! -e $output_dir ) {
-    mkdir $output_dir;
+    make_path $output_dir;
 }
 
 local $/ = $xml_head;
