@@ -1,4 +1,3 @@
-:::: $arg_max = 2097152
 
   Split concatenated XML file stream into separate XML files and run
   the peorgrams that is specified on the command line, in the manner
@@ -9,6 +8,10 @@
      ./xmlxargs --options < input.xmlcat
  
  OPTIONS:
-
+    -n, --nargs 10         Specify number of arguments for each run (default - unlimited).
+    -d, --digits 4         Use specified number of digits (0-paded) to number files.
+    -p, --prefix xmlxargs_ Specify file prefix. Prefix may contain '/' after exisitng dirs.
+    -s, --suffix .xml      Specify the suffix (extension) of the created files.
+    -d, --tmp-dir /tmp     Specify name of the temporary directory. The directory must exist.
     --help,--usage         Print a short usage message (this message) and exit.
 
