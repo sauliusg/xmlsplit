@@ -58,19 +58,38 @@ my $ask_before_running = 0;
 #* OPTIONS:
 #*    -n, --nargs 10         Specify number of arguments for each run (default - unlimited).
 #*    -d, --digits 4         Use specified number of digits (0-paded) to number files.
-#*    -p, --prefix xmlsplit_ Specify file prefix. Prefix may contain '/' after exisitng dirs.
+#*    -p, --prefix xmlxargs_ Specify file prefix. Prefix may contain '/' after exisitng dirs.
 #*    -s, --suffix .xml      Specify the suffix (extension) of the created files.
-#*    -t, --tmp-dir /tmp     Specify name of the temporary directory. The directory must exist.
+#*    -d, --tmp-dir /tmp     Specify name of the temporary directory. The directory must exist.
 #*    --help,--usage         Print a short usage message (this message) and exit.
 #**
 
-@ARGV = getOptions(
-    "-n,--max-args" => \$nargs,
-    "-d,--digits" => \$digits,
-    "-p,--prefix" => \$prefix,
-    "-s,--suffix" => \$suffix,
-    "-t,--tmp-directory" => \$tmp_base,
-    "--options" => sub { 
+my @command;
+
+while (@ARGV) {
+    local $_ = $ARGV[0];
+    if( /^(-n|--max-args|--max-arg|--max-ar|--max-a|--max|--ma|--m)$/ ) {
+        $nargs = shift(@ARGV); next;
+    }
+    if( /^(-d|--digits|--digit|--digi|--dig|--di|--d)$/ ) {
+        $digits = shift(@ARGV); next;
+    }
+    if( /^(-p|--prefix|--prefi|--pref|--pre|--pr|--p)$/ ) {
+        $prefix = shift(@ARGV); next;
+    }
+    if( /^(-s,--suffix|--suffi|--suff|--suf|--su|--s)$/ ) {
+        $suffix = shift(@ARGV); next;
+    }
+    if( /^(-d|--tmp-directory|--tmp-director|--tmp-directo|
+           --tmp-direct|--tmp-direc|--tmp-dire|--tmp-dir|--tmp-di|--tmp-d|
+           --tmp|--tm|--t)$/x ) {
+        $tmp_base = shift(@ARGV); next;
+    }
+    if( /^(-t|--verbose|--verbos|--verbo|--verb|--ver|--ve|--v)$/ ) {
+        ## print ">>>> '-t': \@ARGV = @ARGV\n";
+        $print_command = 1;
+    }
+    if( /^(--options|--option|--optio|--opti|--opt|--op|--o)$/ ) {
         print "$0: The '--options' option is a placehoder.\n";
         print "$0: It should be replaced by one of the following options:\n";
         ## SUsage::usage;
@@ -83,10 +102,23 @@ my $ask_before_running = 0;
             }
         }
         close( SCRIPT );
-        exit
-    },
-    "--help,--usage" => sub { SUsage::usage; exit },
-);
+        exit;
+    }
+    if( /^(--help|--usage)$/ ) {
+        SUsage::usage; exit;
+    }
+    if( ! /^-/ ) {
+        @command = @ARGV;
+        ## print ">>>> \@command = @command\n";
+        @ARGV = ();
+    }
+} continue {
+    if( @ARGV ) {
+        local $, = ' ';
+        ## print ">>>> \@ARGV = @ARGV\n";
+        shift(@ARGV);
+    }
+}
 
 # The redefinition of '$/' must be done after the option processing,
 # otherwise 'SUsage::usage', '--help' and '--options' options will not
@@ -103,6 +135,15 @@ my $tmp_dir = $tmp_base . '/' . 'tmp-' . basename($0) . '-' . $$;
 
 mkdir $tmp_dir;
 
+my @arguments = ();
+my $command_length = 0;
+my $arguments_length = 0;
+
+for( @command ) {
+    $command_length += length( $_ );
+}
+$command_length += int(@command);
+
 my $n = 1;
 while(<>) {
     s/\Q$xml_head\E$//;
@@ -116,6 +157,26 @@ while(<>) {
     print $fh $xml_head, $_;
     close($fh);
 
+    push( @arguments, $filename );
+    $arguments_length += length($filename) + 1;
+    my $cmd_line_length = $command_length + $arguments_length;
+    if( eof() || $cmd_line_length > $arg_max - 2*length($filename) ) {
+        # FIXME: in future, test the actuall command line length,
+        # leaving just 2*$length($filename) is, on one hand, wasteful,
+        # on the ather hand, assumes (without any gud guarantess) that
+        # the nex file name length will be less than twice the current
+        # file name length. (S.G.).
+        if( $print_command ) {
+            local $, = ' ';
+            local $\ = "\n";
+            print @command, @arguments;
+        }
+        system @command, @arguments;
+        unlink @arguments;
+        @arguments = ();
+        $arguments_length = 0;
+    }
+    
     $n++;
 }
 
