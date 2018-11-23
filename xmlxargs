@@ -169,7 +169,7 @@ while(<>) {
         if( $print_command ) {
             local $, = ' ';
             local $\ = "\n";
-            print @command, @arguments;
+            print STDERR @command, @arguments;
         }
         system @command, @arguments;
         unlink @arguments;
