@@ -166,7 +166,6 @@ my $n = 1;
 while(<>) {
     s/\Q$xml_head\E$//;
     next if $_ eq "";
-    next if $_ eq "";
     my $filename = $tmp_dir . '/' .
         $prefix . sprintf( $format, $n ) . $suffix;
     my $next_filename = $tmp_dir . '/' .
