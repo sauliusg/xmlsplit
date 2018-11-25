@@ -8,8 +8,10 @@
      ./xmlxargs --options < input.xmlcat
  
  OPTIONS:
+    -D, --digits 4         Use specified number of digits (0-paded) to number files.
+    -i, --replace          Replace '{}' with each file name in the command.
+    -I XYZ                 Replace 'XYZ' with each file name in the command.
     -n, --nargs 10         Specify number of arguments for each run (default - unlimited).
-    -d, --digits 4         Use specified number of digits (0-paded) to number files.
     -p, --prefix xmlxargs_ Specify file prefix. Prefix may contain '/' after exisitng dirs.
     -s, --suffix .xml      Specify the suffix (extension) of the created files.
     -d, --tmp-dir /tmp     Specify name of the temporary directory. The directory must exist.
