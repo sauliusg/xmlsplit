@@ -33,9 +33,8 @@ use POSIX qw(sysconf);
 use SOptions qw(getOptions);
 use SUsage qw(usage);
 
+my $debug = 0;
 my $arg_max = sysconf( &POSIX::_SC_ARG_MAX );
-
-## print ":::: \$arg_max = $arg_max\n";
 
 my $xml_head = '<?xml ';
 
@@ -62,6 +61,7 @@ my $ask_before_running = 0;
 #*    -s, --suffix .xml      Specify the suffix (extension) of the created files.
 #*    -d, --tmp-dir /tmp     Specify name of the temporary directory. The directory must exist.
 #*    --help,--usage         Print a short usage message (this message) and exit.
+#*    --debug, --no-debug    Print/do not print internal debug values.
 #**
 
 my @command;
@@ -113,6 +113,12 @@ while (@ARGV) {
     if( /^(--help|--usage)$/ ) {
         SUsage::usage; exit;
     }
+    if( /^(--debug|--debu|--deb|--de|--d)$/ ) {
+        $debug = 1; next;
+    }
+    if( /^(--no-debug|--no-debu|--no-deb|--no-de|--no-d|--no|--n)$/ ) {
+        $debug = 0; next;
+    }
     if( /^-/ ) {
         print STDERR "$0: unknown option '$_'\n";
         exit( 1 );
@@ -129,6 +135,8 @@ while (@ARGV) {
         shift(@ARGV);
     }
 }
+
+print STDERR "$0: DEBUG \$arg_max = $arg_max\n" if $debug;
 
 # The redefinition of '$/' must be done after the option processing,
 # otherwise 'SUsage::usage', '--help' and '--options' options will not

@@ -1,6 +1,6 @@
 
   Split concatenated XML file stream into separate XML files and run
-  the peorgrams that is specified on the command line, in the manner
+  the program that is specified on the command line, in the manner
   'xargs' does it for the arguments read from STDIN.
 
  USAGE:
@@ -14,4 +14,5 @@
     -s, --suffix .xml      Specify the suffix (extension) of the created files.
     -d, --tmp-dir /tmp     Specify name of the temporary directory. The directory must exist.
     --help,--usage         Print a short usage message (this message) and exit.
+    --debug, --no-debug    Print/do not print internal debug values.
 
