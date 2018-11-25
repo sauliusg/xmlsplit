@@ -69,25 +69,31 @@ my @command;
 while (@ARGV) {
     local $_ = $ARGV[0];
     if( /^(-n|--max-args|--max-arg|--max-ar|--max-a|--max|--ma|--m)$/ ) {
-        $nargs = shift(@ARGV); next;
+        $nargs = $ARGV[1]; shift(@ARGV); next;
     }
     if( /^(-d|--digits|--digit|--digi|--dig|--di|--d)$/ ) {
-        $digits = shift(@ARGV); next;
+        $digits = $ARGV[1]; shift(@ARGV); next;
     }
     if( /^(-p|--prefix|--prefi|--pref|--pre|--pr|--p)$/ ) {
-        $prefix = shift(@ARGV); next;
+        $prefix = $ARGV[1]; shift(@ARGV); next;
     }
-    if( /^(-s,--suffix|--suffi|--suff|--suf|--su|--s)$/ ) {
-        $suffix = shift(@ARGV); next;
+    if( /^(-n|
+           --max-args|--max-arg|--max-ar|--max-a|--max|--ma|--m
+           --nargs|--narg|--nar|--na|--n
+          )$/x ) {
+        $nargs = $ARGV[1]; shift(@ARGV); next;
+    }
+    if( /^(-s|--suffix|--suffi|--suff|--suf|--su|--s)$/ ) {
+        $suffix = $ARGV[1]; shift(@ARGV); next;
     }
     if( /^(-d|--tmp-directory|--tmp-director|--tmp-directo|
            --tmp-direct|--tmp-direc|--tmp-dire|--tmp-dir|--tmp-di|--tmp-d|
            --tmp|--tm|--t)$/x ) {
-        $tmp_base = shift(@ARGV); next;
+        $tmp_base = $ARGV[1]; shift(@ARGV); next;
     }
     if( /^(-t|--verbose|--verbos|--verbo|--verb|--ver|--ve|--v)$/ ) {
         ## print ">>>> '-t': \@ARGV = @ARGV\n";
-        $print_command = 1;
+        $print_command = 1; next;
     }
     if( /^(--options|--option|--optio|--opti|--opt|--op|--o)$/ ) {
         print "$0: The '--options' option is a placehoder.\n";
@@ -106,6 +112,10 @@ while (@ARGV) {
     }
     if( /^(--help|--usage)$/ ) {
         SUsage::usage; exit;
+    }
+    if( /^-/ ) {
+        print STDERR "$0: unknown option '$_'\n";
+        exit( 1 );
     }
     if( ! /^-/ ) {
         @command = @ARGV;
@@ -160,7 +170,9 @@ while(<>) {
     push( @arguments, $filename );
     $arguments_length += length($filename) + 1;
     my $cmd_line_length = $command_length + $arguments_length;
-    if( eof() || $cmd_line_length > $arg_max - 2*length($filename) ) {
+    if( eof() ||
+        $cmd_line_length > $arg_max - 2*length($filename) ||
+        (defined $nargs && int(@arguments) >= $nargs) ) {
         # FIXME: in future, test the actuall command line length,
         # leaving just 2*$length($filename) is, on one hand, wasteful,
         # on the ather hand, assumes (without any gud guarantess) that
