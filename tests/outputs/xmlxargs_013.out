@@ -1,0 +1,9 @@
++ echo 'MD5(/tmp/tmp-xmlxargs-99999/xmlxargs_0001.cml)' = d8de8a9ce985bf40ef03ff29c9c25b8d /tmp/tmp-xmlxargs-99999/xmlxargs_0001.cml
++ echo 'MD5(/tmp/tmp-xmlxargs-99999/xmlxargs_0002.cml)' = 32eee903864ea3d5c407ea251314cdb2 /tmp/tmp-xmlxargs-99999/xmlxargs_0002.cml
++ echo 'MD5(/tmp/tmp-xmlxargs-99999/xmlxargs_0003.cml)' = 605d787219899e538103455eb151022c /tmp/tmp-xmlxargs-99999/xmlxargs_0003.cml
+++ md5sum /tmp/tmp-xmlxargs-99999/xmlxargs_0001.cml
+++ md5sum /tmp/tmp-xmlxargs-99999/xmlxargs_0002.cml
+++ md5sum /tmp/tmp-xmlxargs-99999/xmlxargs_0003.cml
+MD5(/tmp/tmp-xmlxargs-99999/xmlxargs_0001.cml) = d8de8a9ce985bf40ef03ff29c9c25b8d /tmp/tmp-xmlxargs-99999/xmlxargs_0001.cml
+MD5(/tmp/tmp-xmlxargs-99999/xmlxargs_0002.cml) = 32eee903864ea3d5c407ea251314cdb2 /tmp/tmp-xmlxargs-99999/xmlxargs_0002.cml
+MD5(/tmp/tmp-xmlxargs-99999/xmlxargs_0003.cml) = 605d787219899e538103455eb151022c /tmp/tmp-xmlxargs-99999/xmlxargs_0003.cml

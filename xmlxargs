@@ -49,6 +49,7 @@ my $nargs; # Number of arguments to present to the executed
 
 my $print_command = 0;
 my $ask_before_running = 0;
+my $replacement_string;
 
 #* USAGE:
 #*     $0 --options input1.xmlcat input*.xmlcat
@@ -73,6 +74,12 @@ while (@ARGV) {
     }
     if( /^(-d|--digits|--digit|--digi|--dig|--di|--d)$/ ) {
         $digits = $ARGV[1]; shift(@ARGV); next;
+    }
+    if( /^(-i|--repace|--repac|--repa|--rep|--re|--r)$/ ) {
+        $replacement_string = '{}'; next;
+    }
+    if( /^-I$/ ) {
+        $replacement_string = $ARGV[1]; shift(@ARGV); next;
     }
     if( /^(-p|--prefix|--prefi|--pref|--pre|--pr|--p)$/ ) {
         $prefix = $ARGV[1]; shift(@ARGV); next;
@@ -176,18 +183,38 @@ while(<>) {
     print $fh $xml_head, $_;
     close($fh);
 
-    push( @arguments, $filename );
     $arguments_length += length($filename) + 1;
+
+    my @actual_command;
+    if( $replacement_string ) {
+        @actual_command = map {
+            my $l = $_;
+            $l =~ s/\Q$replacement_string\E/$filename/g;
+            $l }
+        @command;
+    } else {
+        push( @arguments, $filename );
+    }
+
     my $cmd_line_length = $command_length + $arguments_length;
+
     if( eof() ||
         $cmd_line_length > $arg_max - length($next_filename) ||
-        (defined $nargs && int(@arguments) >= $nargs) ) {
+        (defined $nargs && int(@arguments) >= $nargs) ||
+        defined $replacement_string ) {
+
+        if( !defined $replacement_string ) {
+            @actual_command = (@command, @arguments);
+        }
+
         if( $print_command ) {
             local $, = ' ';
             local $\ = "\n";
-            print STDERR @command, @arguments;
+            print STDERR @actual_command;
         }
-        system @command, @arguments;
+
+        system @actual_command;
+
         unlink @arguments;
         @arguments = ();
         $arguments_length = 0;
