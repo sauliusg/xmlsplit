@@ -1,0 +1,5 @@
+md5sum /tmp/tmp-xmlxargs-99999/xmlxargs_0003.xml
+md5sum /tmp/tmp-xmlxargs-99999/xmlxargs_0001.xml /tmp/tmp-xmlxargs-99999/xmlxargs_0002.xml
+d8de8a9ce985bf40ef03ff29c9c25b8d  /tmp/tmp-xmlxargs-99999/xmlxargs_0001.xml
+605d787219899e538103455eb151022c  /tmp/tmp-xmlxargs-99999/xmlxargs_0003.xml
+32eee903864ea3d5c407ea251314cdb2  /tmp/tmp-xmlxargs-99999/xmlxargs_0002.xml

@@ -169,6 +169,8 @@ while(<>) {
     next if $_ eq "";
     my $filename = $tmp_dir . '/' .
         $prefix . sprintf( $format, $n ) . $suffix;
+    my $next_filename = $tmp_dir . '/' .
+        $prefix . sprintf( $format, $n+1 ) . $suffix;
 
     open( my $fh, ">$filename" ) or
         die "could not open file '$filename' for writing: $!";
@@ -179,13 +181,8 @@ while(<>) {
     $arguments_length += length($filename) + 1;
     my $cmd_line_length = $command_length + $arguments_length;
     if( eof() ||
-        $cmd_line_length > $arg_max - 2*length($filename) ||
+        $cmd_line_length > $arg_max - length($next_filename) ||
         (defined $nargs && int(@arguments) >= $nargs) ) {
-        # FIXME: in future, test the actuall command line length,
-        # leaving just 2*$length($filename) is, on one hand, wasteful,
-        # on the ather hand, assumes (without any gud guarantess) that
-        # the nex file name length will be less than twice the current
-        # file name length. (S.G.).
         if( $print_command ) {
             local $, = ' ';
             local $\ = "\n";
