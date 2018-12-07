@@ -1,0 +1,42 @@
++ directory-metadata
++ whoami
+saulius
++ hostname -f
+varanas.saulius-grazulis.lt
++ pwd
+/home/saulius/writings/Rolandas_Porėjus/software
++ svn info
+Path: .
+Working Copy Root Path: /home/saulius/writings/Rolandas_Porėjus
+URL: svn://saulius-grazulis.lt/Rolandas_Por%C4%97jus/software
+Relative URL: ^/software
+Repository Root: svn://saulius-grazulis.lt/Rolandas_Por%C4%97jus
+Repository UUID: a7a6ca9a-a646-4047-9087-10dca23952c2
+Revision: 123
+Node Kind: directory
+Schedule: normal
+Last Changed Author: Rolandas_Porėjus
+Last Changed Rev: 123
+Last Changed Date: 2018-12-07 09:17:41 +0200 (Fri, 07 Dec 2018)
+
++ df -h .
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2       455G  342G   90G  80% /
++ date
+Fri Dec  7 10:44:20 EET 2018
++ europepmc-xml --core --search-terms CRISPR --limit 4 --page-size 10
++ xmlxargs ./europmc-fulltext/trunk/epmc-xml-ftext-uri
++ awk '{print $3}'
++ sort -u
++ xargs -t -i curl -sSL 'https://www.ebi.ac.uk/europepmc/webservices/rest/{}/fullTextXML'
+/home/saulius/src/bibliophile/europepmc-xml: NOTE, files : 
+/home/saulius/src/bibliophile/europepmc-xml: NOTE, search terms : CRISPR
+/home/saulius/src/bibliophile/europepmc-xml: NOTE, search term : CRISPR
+curl -sSL https://www.ebi.ac.uk/europepmc/webservices/rest/30370342/fullTextXML 
+curl -sSL https://www.ebi.ac.uk/europepmc/webservices/rest/30393777/fullTextXML 
+curl -sSL https://www.ebi.ac.uk/europepmc/webservices/rest/30400804/fullTextXML 
+curl -sSL https://www.ebi.ac.uk/europepmc/webservices/rest/30400943/fullTextXML 
+curl -sSL https://www.ebi.ac.uk/europepmc/webservices/rest/30425154/fullTextXML 
+curl -sSL https://www.ebi.ac.uk/europepmc/webservices/rest/30459849/fullTextXML 
++ date
+Fri Dec  7 10:44:28 EET 2018
