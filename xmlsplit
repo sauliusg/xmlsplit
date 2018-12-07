@@ -46,6 +46,8 @@ my $digits = 4; # Number of decomal digits used to number the split files.
 #* 
 #* OPTIONS:
 #*    -d, --digits 4         Use specified number of digits (0-paded) to number files.
+#*    -h, --header '<xml?'   Use the specified XML header as the stream delimiter
+#*                           (useful values are '<?xml ' (default), '<!DOCTYPE ').
 #*    -o, --output-dir .     Specify output directory name. Output tree is created if needed.
 #*    -p, --prefix xmlsplit_ Specify file prefix. Prefix may contain '/' after exisitng dirs.
 #*    -s, --suffix .xml      Specify the suffix (extension) of the created files.
@@ -54,6 +56,7 @@ my $digits = 4; # Number of decomal digits used to number the split files.
 
 @ARGV = getOptions(
     "-d,--digits" => \$digits,
+    "-h,--header" => \$xml_head,
     "-o,--output-directory" => \$output_dir,
     "-p,--prefix" => \$prefix,
     "-s,--suffix" => \$suffix,
