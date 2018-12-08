@@ -4,8 +4,11 @@
   'xargs' does it for the arguments read from STDIN.
 
  USAGE:
-     ./xmlxargs --options input1.xmlcat input*.xmlcat
-     ./xmlxargs --options < input.xmlcat
+     ./xmlxargs --options command --command-options < input.xmlcat
+ 
+     e.g.:
+     ./xmlxargs --options xmllint --noout < input.xmlcat
+     ./xmlxargs --options md5sum < input.xmlcat
  
  OPTIONS:
     -D, --digits 4         Use specified number of digits (0-paded) to number files.
