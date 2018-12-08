@@ -57,6 +57,8 @@ my $replacement_string;
 #* 
 #* OPTIONS:
 #*    -D, --digits 4         Use specified number of digits (0-paded) to number files.
+#*    -h, --header '<xml?'   Use the specified XML header as the stream delimiter
+#*                           (useful values are '<?xml ' (default), '<!DOCTYPE ').
 #*    -i, --replace          Replace '{}' with each file name in the command.
 #*    -I, --insert XYZ       Replace 'XYZ' with each file name in the command.
 #*    -n, --nargs 10         Specify number of arguments for each run (default - unlimited).
@@ -76,6 +78,9 @@ while (@ARGV) {
     }
     if( /^(-D|--digits|--digit|--digi|--dig|--di|--d)$/ ) {
         $digits = $ARGV[1]; shift(@ARGV); next;
+    }
+    if( /^(-h|--header|--heade|--head|--hea|--he|--h)$/ ) {
+        $xml_head = $ARGV[1]; shift(@ARGV); next;
     }
     if( /^(-i|--repace|--repac|--repa|--rep|--re|--r)$/ ) {
         $replacement_string = '{}'; next;
