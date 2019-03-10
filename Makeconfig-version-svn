@@ -8,7 +8,7 @@
 TRUNK    = ^/trunk
 BRANCHES = ^/branches
 RELEASES = ${BRANCHES}
-PKG_NAME = $(shell pwd | xargs dirname | xargs basename) 
+PKG_NAME = xmlsplit
 
 SVN_VERSION_KEYWORDS = WIP $$Revision: 169 $$ $$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/versions/Makeconfig-version-svn.example $$
 
