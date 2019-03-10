@@ -1,0 +1,9 @@
+#*
+#  Module to provide version number for Perl programs.
+#**
+
+package XMLSplit::Version;
+
+our $Version = "@VERSION@";
+
+1;

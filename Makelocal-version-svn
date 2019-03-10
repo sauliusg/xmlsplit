@@ -23,14 +23,14 @@ VERSION := $(shell grep -v "^\#" ${VFILE} | awk '{print $$1}')
 version.h: version.hin ${VFILE}
 	sed 's/@VERSION@/${VERSION}/' $< > $@
 
-lib/perl5/Version.pm: lib/perl5/Version.pmin ${VFILE}
+%/Version.pm: %/Version.pmin ${VFILE}
 	sed 's/@VERSION@/${VERSION}/' $< > $@
 
-scripts/package-version: scripts/package-version.in
+%/package-version: %/package-version.in
 	sed 's/@VERSION@/${VERSION}/' $< > $@
 	chmod 755 $@
 
-lib/Version.slib: lib/Version.sin ${VFILE}
+%/Version.slib: %/Version.sin ${VFILE}
 	sed 's/@VERSION@/${VERSION}/' $< > $@
 
 release:

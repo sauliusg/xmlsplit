@@ -36,7 +36,7 @@ all: tests
 
 #------------------------------------------------------------------------------
 
-tests test: ${DIFFS}
+tests test: ${DIFFS} lib/perl5/XMLSplit/Version.pm
 
 ${OUTP_DIR}/%.diff: ${TEST_DIR}/%.inp ${OUTP_DIR}/%.out
 	@printf "%-30s: " $*
