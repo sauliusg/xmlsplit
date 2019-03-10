@@ -17,6 +17,8 @@ eval 'exec perl -x $0 ${1+"$@"}'
 use strict;
 use warnings;
 
+my $Id = '$Id$';
+
 BEGIN {
     use Cwd qw(abs_path);
     my $base_dir = abs_path(__FILE__);

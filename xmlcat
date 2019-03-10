@@ -14,6 +14,8 @@
 #*     $0 --options input*.xml | xmlsplit
 #**
 
+ID='$Id$';
+
 set -ue;
 
 # In its simplest form, we just cat the files:
