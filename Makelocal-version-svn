@@ -20,27 +20,28 @@ VERSION_PM ?= lib/perl5/Version.pm
 
 .PRECIOUS: ${VERSION_PM}
 
-VERSION := $(shell grep -v "^\#" ${VFILE} | awk '{print $$1}')
+REPORTED_VERSION := $(shell grep -v "^\#" ${VFILE} | awk '{print $$0}' | sed 's/\$$//g; s/  */ /g')
+VERSION := $(shell grep -v "^\#" ${VFILE} | awk '{print $$1}' )
 
 ## all tests test: lib/Version.slib
 
 version.h: version.hin ${VFILE}
-	sed 's/@VERSION@/${VERSION}/' $< > $@
+	sed 's,@VERSION@,${REPORTED_VERSION},' $< > $@
 
 %/Version.pm: %/Version.pmin ${VFILE}
-	sed 's/@VERSION@/${VERSION}/' $< > $@
+	sed 's,@VERSION@,${REPORTED_VERSION},' $< > $@
 
 %/package-version: %/package-version.in
-	sed 's/@VERSION@/${VERSION}/' $< > $@
+	sed 's,@VERSION@,${REPORTED_VERSION},' $< > $@
 	chmod 755 $@
 
 %/Version.slib: %/Version.sin ${VFILE}
-	sed 's/@VERSION@/${VERSION}/' $< > $@
+	sed 's,@VERSION@,${REPORTED_VERSION},' $< > $@
 
 release:
 	svn ci
 	perl -lpi -e 's/\(unreleased\)/(${VERSION})/ if $$. == 1' CHANGELOG
-	perl -lpi -e 's/.../${PKG_NAME}/ if $$. == 1' CHANGELOG
+	perl -lpi -e 's/\.\.\./${PKG_NAME}/ if $$. == 1' CHANGELOG
 	awk '/^#/{print} !/^#/{print $$1}' ${VFILE} > ${VFILE}.$$$$; \
 	mv -f ${VFILE}.$$$$ ${VFILE}
 	svn ci -m "CHANGELOG: switching from 'unreleased' to '${VERSION}'"
