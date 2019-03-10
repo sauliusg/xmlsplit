@@ -5,9 +5,9 @@
 #$URL$
 #------------------------------------------------------------------------
 
-MAKECONF_FILES = \
+MAKECONF_FILES = $(sort \
 	$(filter-out %.example, $(filter-out %~, $(wildcard Makeconf*))) \
-	$(patsubst %.example, %, $(wildcard Make*.example))
+	$(patsubst %.example, %, $(wildcard Make*.example)))
 
 ifneq ("${MAKECONF_FILES}","")
 include ${MAKECONF_FILES}
