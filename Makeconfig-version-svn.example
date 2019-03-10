@@ -11,3 +11,5 @@ RELEASES = ${BRANCHES}
 PKG_NAME = $(shell pwd | xargs dirname | xargs basename) 
 
 SVN_VERSION_KEYWORDS = WIP $$Revision: 169 $$ $$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/versions/Makeconfig-version-svn.example $$
+
+VERSION_PM = lib/perl5/XMLSplit/Version.pm
