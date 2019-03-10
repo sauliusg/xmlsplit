@@ -20,22 +20,22 @@ VERSION_PM ?= lib/perl5/Version.pm
 
 .PRECIOUS: ${VERSION_PM}
 
-VERSION := $(shell grep -v "^\#" ${VFILE} | awk '{print $$1}')
+VERSION := $(shell grep -v "^\#" ${VFILE} | awk '{print $$0}' | sed 's/\$$//g; s/  */ /g')
 
 ## all tests test: lib/Version.slib
 
 version.h: version.hin ${VFILE}
-	sed 's/@VERSION@/${VERSION}/' $< > $@
+	sed 's,@VERSION@,${VERSION},' $< > $@
 
 %/Version.pm: %/Version.pmin ${VFILE}
-	sed 's/@VERSION@/${VERSION}/' $< > $@
+	sed 's,@VERSION@,${VERSION},' $< > $@
 
 %/package-version: %/package-version.in
-	sed 's/@VERSION@/${VERSION}/' $< > $@
+	sed 's,@VERSION@,${VERSION},' $< > $@
 	chmod 755 $@
 
 %/Version.slib: %/Version.sin ${VFILE}
-	sed 's/@VERSION@/${VERSION}/' $< > $@
+	sed 's,@VERSION@,${VERSION},' $< > $@
 
 release:
 	svn ci
