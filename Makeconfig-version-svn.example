@@ -1,0 +1,13 @@
+#---*- Makefile -*-------------------------------------------------------
+#$Author: saulius $
+#$Date: 2019-02-09 11:00:30 +0200 (Sat, 09 Feb 2019) $
+#$Revision: 169 $
+#$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/versions/Makeconfig-version-svn.example $
+#------------------------------------------------------------------------
+
+TRUNK    = ^/trunk
+BRANCHES = ^/branches
+RELEASES = ${BRANCHES}
+PKG_NAME = $(shell pwd | xargs dirname | xargs basename) 
+
+SVN_VERSION_KEYWORDS = WIP $$Revision: 169 $$ $$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/versions/Makeconfig-version-svn.example $$
