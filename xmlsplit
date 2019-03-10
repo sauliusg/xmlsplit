@@ -54,6 +54,7 @@ my $digits = 4; # Number of decomal digits used to number the split files.
 #*    -p, --prefix xmlsplit_ Specify file prefix. Prefix may contain '/' after exisitng dirs.
 #*    -s, --suffix .xml      Specify the suffix (extension) of the created files.
 #*    --help,--usage         Print a short usage message (this message) and exit.
+#*    --version              Print version number and exit.
 #**
 
 @ARGV = getOptions(
@@ -78,6 +79,17 @@ my $digits = 4; # Number of decomal digits used to number the split files.
         exit
     },
     "--help,--usage" => sub { usage; exit },
+    "--version" => sub {
+        my $Ident = $Id;
+        my $basename = $0;
+        $Ident =~ s/^\$|\$$//g;
+        $basename =~ s/^.*\///;
+        require XMLSplit::Version;
+        no warnings 'once';
+        print $basename, " version ", $XMLSplit::Version::Version, "\n";
+        print $Ident, "\n";
+        exit(0);
+    },
 );
 
 # The redefinition of '$/' must be done after the option processing,

@@ -71,6 +71,7 @@ my $replacement_string;
 #*    -s, --suffix .xml      Specify the suffix (extension) of the created files.
 #*    -d, --tmp-dir /tmp     Specify name of the temporary directory. The directory must exist.
 #*    --help,--usage         Print a short usage message (this message) and exit.
+#*    --version              Print version number and exit.
 #*    --debug, --no-debug    Print/do not print internal debug values.
 #**
 
@@ -131,6 +132,17 @@ while (@ARGV) {
     }
     if( /^(--help|--usage)$/ ) {
         SUsage::usage; exit;
+    }
+    if( /^(--version|--versio|--versi|--vers|--ver|--ve|--v)/ ){
+        my $Ident = $Id;
+        my $basename = $0;
+        $Ident =~ s/^\$|\$$//g;
+        $basename =~ s/^.*\///;
+        require XMLSplit::Version;
+        no warnings 'once';
+        print $basename, " version ", $XMLSplit::Version::Version, "\n";
+        print $Ident, "\n";
+        exit(0);
     }
     if( /^(--debug|--debu|--deb|--de|--d)$/ ) {
         $debug = 1; next;

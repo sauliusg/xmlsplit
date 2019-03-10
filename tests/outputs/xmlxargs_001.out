@@ -21,5 +21,6 @@
     -s, --suffix .xml      Specify the suffix (extension) of the created files.
     -d, --tmp-dir /tmp     Specify name of the temporary directory. The directory must exist.
     --help,--usage         Print a short usage message (this message) and exit.
+    --version              Print version number and exit.
     --debug, --no-debug    Print/do not print internal debug values.
 
