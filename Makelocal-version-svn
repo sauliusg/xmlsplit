@@ -16,6 +16,10 @@ SVN_VERSION_KEYWORDS ?= WIP $$Revision: 177 $$ $$URL: svn+ssh://saulius-grazulis
 
 VFILE ?= .version
 
+VERSION_PM ?= lib/perl5/Version.pm
+
+.PRECIOUS: ${VERSION_PM}
+
 VERSION := $(shell grep -v "^\#" ${VFILE} | awk '{print $$1}')
 
 ## all tests test: lib/Version.slib
@@ -71,5 +75,4 @@ patch:
 cleanAll distclean: clean-version
 
 clean-version:
-	rm -f version.h
-	rm -f lib/perl5/XMLSplit/Version.pm
+	rm -f ${VERSION_PM}

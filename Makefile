@@ -30,15 +30,17 @@ OUTPUTS = $(sort \
 
 DIFFS   = ${OUTPUTS:%.out=%.diff}
 
+PERL_MODULES = ${VERSION_PM}
+
 .PHONY: all test tests out outputs clean cleanAll distclean
 
 all: tests
 
 #------------------------------------------------------------------------------
 
-tests test: ${DIFFS} lib/perl5/XMLSplit/Version.pm
+tests test: ${DIFFS}
 
-${OUTP_DIR}/%.diff: ${TEST_DIR}/%.inp ${OUTP_DIR}/%.out
+${OUTP_DIR}/%.diff: ${TEST_DIR}/%.inp ${PERL_MODULES} ${OUTP_DIR}/%.out
 	@printf "%-30s: " $*
 	@${SCRIPT_DIR}$(shell echo $* | sed -e 's/_[0-9]*$$//') $< 2>&1 \
 	| diff -I '^# Id: ' $(lastword $^) - > $@; \
@@ -48,7 +50,7 @@ ${OUTP_DIR}/%.diff: ${TEST_DIR}/%.inp ${OUTP_DIR}/%.out
 		echo FAILED:; cat $@; \
 	fi
 
-${OUTP_DIR}/%.diff: ${TEST_DIR}/%.sh ${OUTP_DIR}/%.out
+${OUTP_DIR}/%.diff: ${TEST_DIR}/%.sh ${PERL_MODULES} ${OUTP_DIR}/%.out
 	@printf "%-30s: " $*
 	@$< 2>&1 | diff -I '^# Id: ' $(lastword $^) - > $@; \
 	if [ $$? -eq 0 ]; then \
@@ -57,7 +59,7 @@ ${OUTP_DIR}/%.diff: ${TEST_DIR}/%.sh ${OUTP_DIR}/%.out
 		echo FAILED:; cat $@; \
 	fi
 
-${OUTP_DIR}/%.diff: ${TEST_DIR}/%.opt ${OUTP_DIR}/%.out
+${OUTP_DIR}/%.diff: ${TEST_DIR}/%.opt ${PERL_MODULES} ${OUTP_DIR}/%.out
 	@printf "%-30s: " $*
 	@${SCRIPT_DIR}$(shell echo $* | sed -e 's/_[0-9]*$$//') \
 		$(shell grep -v "^#" $<) 2>&1 \
@@ -70,19 +72,19 @@ ${OUTP_DIR}/%.diff: ${TEST_DIR}/%.opt ${OUTP_DIR}/%.out
 
 out outputs: ${OUTPUTS}
 
-${OUTP_DIR}/%.out: ${TEST_DIR}/%.inp
+${OUTP_DIR}/%.out: ${TEST_DIR}/%.inp ${PERL_MODULES}
 	-@test -f $@ || echo "$@:"
 	-@test -f $@ || \
 		${SCRIPT_DIR}$(shell echo $* | sed -e 's/_[0-9]*$$//') $< 2>&1 \
 		| tee $@
 	-@touch $@
 
-${OUTP_DIR}/%.out: ${TEST_DIR}/%.sh
+${OUTP_DIR}/%.out: ${TEST_DIR}/%.sh ${PERL_MODULES}
 	-@test -f $@ || echo "$@:"
 	-@test -f $@ || $< 2>&1 | tee $@
 	-@touch $@
 
-${OUTP_DIR}/%.out: ${TEST_DIR}/%.opt
+${OUTP_DIR}/%.out: ${TEST_DIR}/%.opt ${PERL_MODULES}
 	-@test -f $@ || echo "$@:"
 	-@test -f $@ || \
 		${SCRIPT_DIR}$(shell echo $* | sed -e 's/_[0-9]*$$//') \
