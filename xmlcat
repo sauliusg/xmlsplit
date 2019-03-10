@@ -9,6 +9,11 @@
 #  Concatenate several XML files into a stream.
 #**
 
+#* USAGE:
+#*     $0 --options input*.xml > all.xmlcat
+#*     $0 --options input*.xml | xmlsplit
+#**
+
 set -ue;
 
 # In its simplest form, we just cat the files:

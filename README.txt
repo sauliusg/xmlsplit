@@ -2,6 +2,10 @@ xmlcat:
 
   Concatenate several XML files into a stream.
 
+ USAGE:
+     xmlcat --options input*.xml > all.xmlcat
+     xmlcat --options input*.xml | xmlsplit
+
 xmlsplit:
 
   Split concatenated XML file stream into separate XML files. Each
